@@ -87,7 +87,7 @@ This project calculate the **Put-Call Ratio (PCR)** values for different financi
 
     * For Prodution, Run the Django application using Gunicorn:
         ```bash
-        gunicorn pcr_value_calculation.wsgi:application --bind 0.0.0.0:8000
+        gunicorn pcr.wsgi:application --bind 0.0.0.0:8000
         ```
 
 8. Start Celery worker and beat:
