@@ -35,7 +35,7 @@ def is_current_time_before(target_time_str):
     # Get the current time
     current_time = datetime.now().time()
     # Compare current time with target time
-    return current_time < target_time
+    return current_time <= target_time
 
 
 def get_nearest_expiry_date(expiry_dates):
@@ -52,7 +52,7 @@ def filter_data_by_expiry_date(data, expiry_date):
         if key == "records":
             try:
                 current_price = value["data"][0]["PE"]["underlyingValue"]
-            except Exception as e:
+            except Exception:
                 current_price = value["data"][0]["CE"]["underlyingValue"]
 
             for record in value["data"]:
@@ -72,7 +72,7 @@ def filter_data_by_expiry_date(data, expiry_date):
                             "changeinOpenInterest"
                         ]
                         filtered_data.append(record)
-                    except Exception as e1:
+                    except Exception:
                         continue
     df = pd.DataFrame(filtered_data)
     df["absolute_difference"] = abs(df["strikePrice"] - df["CMP"].iloc[0])
@@ -246,7 +246,7 @@ def get_pcr_data():
 
 
 def find_pcr():
-    while is_current_time_before("23:32"):
+    while is_current_time_before("15:33"):
         get_pcr_data()
         logger.info("All API calls completed successfully..")
         # Sleep for 5 minutes
